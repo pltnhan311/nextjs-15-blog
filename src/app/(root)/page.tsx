@@ -1,6 +1,11 @@
 import SearchForm from '@/components/SearchForm';
 import StartupCard from '@/components/StartupCard';
+import { Author, Startup } from 'src/sanity/types';
 import React from 'react';
+import { client } from 'src/sanity/lib/client';
+import { STARTUPS_QUERY } from 'src/sanity/lib/queries';
+
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author}
 
 const Home = async ({
   searchParams,
@@ -11,22 +16,24 @@ const Home = async ({
 }) => {
   const query = (await searchParams).query;
 
-  const posts = [
-    {
-      _createdAt: new Date(),
-      view: 11,
-      author: {
-        _id: 1,
-        name: 'Elon Musk',
-      },
-      _id: 1,
-      description: 'Robots are taking over the world',
-      title: 'We are robots',
-      category: 'Technology',
-      image:
-        'https://images.unsplash.com/photo-1581557991964-125469da3b8a?q=80&w=2866&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    },
-  ];
+  const posts = await client.fetch(STARTUPS_QUERY);
+
+  // const posts = [
+  //   {
+  //     _createdAt: new Date(),
+  //     view: 11,
+  //     author: {
+  //       _id: 1,
+  //       name: 'Elon Musk',
+  //     },
+  //     _id: 1,
+  //     description: 'Robots are taking over the world',
+  //     title: 'We are robots',
+  //     category: 'Technology',
+  //     image:
+  //       'https://images.unsplash.com/photo-1581557991964-125469da3b8a?q=80&w=2866&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //   },
+  // ];
 
   return (
     <>
