@@ -2,10 +2,10 @@ import SearchForm from '@/components/SearchForm';
 import StartupCard from '@/components/StartupCard';
 import { Author, Startup } from 'src/sanity/types';
 import React from 'react';
-import { client } from 'src/sanity/lib/client';
 import { STARTUPS_QUERY } from 'src/sanity/lib/queries';
+import { sanityFetch, SanityLive } from 'src/sanity/lib/live';
 
-export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author}
+export type StartupTypeCard = Omit<Startup, 'author'> & { author?: Author };
 
 const Home = async ({
   searchParams,
@@ -16,7 +16,7 @@ const Home = async ({
 }) => {
   const query = (await searchParams).query;
 
-  const posts = await client.fetch(STARTUPS_QUERY);
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
 
   // const posts = [
   //   {
@@ -63,6 +63,8 @@ const Home = async ({
           </ul>
         </p>
       </section>
+
+      <SanityLive />
     </>
   );
 };
