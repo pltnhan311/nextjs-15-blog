@@ -16,7 +16,9 @@ const Home = async ({
 }) => {
   const query = (await searchParams).query;
 
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
+  const params = { search: query || null };
+
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
   // const posts = [
   //   {
@@ -58,7 +60,7 @@ const Home = async ({
                 <StartupCard key={post._id} post={post} />
               ))
             ) : (
-              <p>No startups found. Try another search term.</p>
+              <p>No startups found</p>
             )}
           </ul>
         </p>
