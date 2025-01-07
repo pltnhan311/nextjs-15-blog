@@ -53,17 +53,16 @@ const Home = async ({
       <section className="section_container">
         <p className="text-30-semibold">
           {query ? `Search results for "${query}"` : 'All Startups'}
-
-          <ul className="card_grid mt-7">
-            {posts?.length > 0 ? (
-              posts.map((post: StartupTypeCard) => (
-                <StartupCard key={post._id} post={post} />
-              ))
-            ) : (
-              <p>No startups found</p>
-            )}
-          </ul>
         </p>
+        <div className="card_grid mt-7">
+          {posts?.length > 0 ? (
+            posts.map((post: StartupTypeCard) => (
+              <StartupCard key={post._id} post={post} />
+            ))
+          ) : (
+            <p>No startups found</p>
+          )}
+        </div>
       </section>
 
       <SanityLive />

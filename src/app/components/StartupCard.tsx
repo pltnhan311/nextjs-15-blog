@@ -19,7 +19,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   } = post;
 
   return (
-    <li className="startup-card group">
+    <li className="startup-card group list-none">
       <div className="flex-between">
         <p className="startup_card_date">{formatDate(_createdAt)}</p>
         <div className="flex gap-1.5">
