@@ -19,10 +19,11 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const session = await auth();
 
-  console.log(session?.user?.id);
-
+  console.log(session);
 
   const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+
+  console.log(post);
 
   const parsedContent = md.render(post?.pitch || '');
 
@@ -50,7 +51,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               href={`/user/${post.author?._id}`}
             >
               <Image
-                src={post.author.image}
+                src={post.author?.image}
                 alt="avatar"
                 width={64}
                 height={64}
@@ -68,7 +69,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <h3 className="text-30-bold">Pitch Details</h3>
           {parsedContent ? (
             <article
-              className="max-w-4xl break-all font-work-sans prose"
+              className="prose max-w-4xl break-all font-work-sans"
               dangerouslySetInnerHTML={{ __html: parsedContent }}
             />
           ) : (
