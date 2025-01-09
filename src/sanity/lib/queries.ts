@@ -25,3 +25,8 @@ export const STARTUP_VIEWS_QUERY = defineQuery(`
     _id, views
 } `
 )
+
+export const AUTHOR_BY_GOOGLE_ID_QUERY = defineQuery(`
+  *[_type == 'author' && googleId == $id][0] {
+    _id, googleId, name, username, image, email, bio
+} `);

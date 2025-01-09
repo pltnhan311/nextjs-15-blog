@@ -8,6 +8,7 @@ import { STARTUP_BY_ID_QUERY } from 'src/sanity/lib/queries';
 import markdownit from 'markdown-it';
 import { Skeleton } from '@/components/ui/skeleton';
 import View from '@/components/View';
+import { auth } from 'auth';
 
 const md = markdownit();
 
@@ -15,6 +16,11 @@ export const experimental_ppr = true;
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
+
+  const session = await auth();
+
+  console.log(session?.user?.id);
+
 
   const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
