@@ -1,6 +1,7 @@
 import { StartupTypeCard } from '@/(root)/page';
 import { Button } from '@/components/ui/button';
-import { formatDate } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn, formatDate } from '@/lib/utils';
 import { EyeIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -39,7 +40,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         </div>
         <Link href={`/user/${author?._id}`}>
           <Image
-            src="https://placehold.co/48x48"
+            src={author?.image || '/avatar.png'}
             alt="placeholder"
             width={48}
             height={48}
@@ -65,5 +66,15 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
     </li>
   );
 };
+
+export const StartupCardSkeleton = () => (
+  <>
+    {[0, 1, 2, 3, 4].map((index: number) => (
+      <li key={cn('skeleton', index)}>
+        <Skeleton className="startup-card_skeleton" />
+      </li>
+    ))}
+  </>
+);
 
 export default StartupCard;

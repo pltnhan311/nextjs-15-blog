@@ -7,24 +7,16 @@ import { writeClient } from 'src/sanity/lib/write-client';
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Google],
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({ profile }) {
       try {
-        console.log('Google Profile:', profile);
-        console.log('Google Account:', account);
-
         // Extract relevant fields from the Google profile
         const { sub: googleId, name, email, picture } = profile || {};
         const username = email?.split('@')[0]; // Create a username from the email
-
-        console.log('Google ID:', googleId);
 
         // Check if the user already exists in Sanity
         const existingUser = await client
           .withConfig({ useCdn: false })
           .fetch(AUTHOR_BY_GOOGLE_ID_QUERY, { id: googleId });
-        
-        console.log('Existing User:', existingUser);
-
 
         // If the user doesn't exist, create a new user in Sanity
         if (!existingUser) {

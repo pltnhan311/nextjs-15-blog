@@ -1,14 +1,12 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { auth, signIn, signOut } from "auth";
-import { BadgePlus } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { auth, signIn, signOut } from 'auth';
+import { BadgePlus } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
 const Navbar = async () => {
   const session = await auth();
-
-  console.log(session);
 
   return (
     <header className="bg-white px-5 py-3 font-work-sans shadow-sm">
@@ -39,7 +37,6 @@ const Navbar = async () => {
                   <AvatarImage
                     src={session?.user?.image || ''}
                     alt={session?.user?.name || ''}
-                    
                   />
                   <AvatarFallback>AV</AvatarFallback>
                 </Avatar>
